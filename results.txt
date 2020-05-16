@@ -1,0 +1,35 @@
+JDK 11.0.5, OpenJDK 64-Bit Server VM, 11.0.5+10
+Benchmark                       Mode  Cnt    Score    Error  Units
+TestStreams.testExplicitStream  avgt    9  565.209 ± 17.344  ns/op
+TestStreams.testIndexedFor      avgt    9  437.044 ± 12.670  ns/op
+TestStreams.testIteratorFor     avgt    9  572.233 ± 11.817  ns/op
+TestStreams.testWhileArray      avgt    9  370.275 ±  7.880  ns/op
+
+JDK 14.0.1, OpenJDK 64-Bit Server VM, 14.0.1+7
+Benchmark                       Mode  Cnt    Score    Error  Units
+TestStreams.testExplicitStream  avgt    9  691.958 ± 12.499  ns/op
+TestStreams.testIndexedFor      avgt    9  531.077 ±  7.141  ns/op
+TestStreams.testIteratorFor     avgt    9  522.142 ± 13.903  ns/op
+TestStreams.testWhileArray      avgt    9  368.632 ±  8.692  ns/op
+
+Benchmark                       Mode  Cnt    Score     Error  Units
+TestStreams.testArrayStream     avgt    9  919.839 ± 334.636  ns/op
+TestStreams.testExplicitStream  avgt    9  667.806 ±  92.078  ns/op
+TestStreams.testIndexedFor      avgt    9  529.489 ±   9.775  ns/op
+TestStreams.testIteratorFor     avgt    9  529.175 ±  10.799  ns/op
+TestStreams.testWhileArray      avgt    9  369.791 ±   7.043  ns/op
+
+
+JDK 1.8.0_242, OpenJDK 64-Bit Server VM, 25.242-b08
+Benchmark                       Mode  Cnt    Score    Error  Units
+TestStreams.testExplicitStream  avgt    9  594.710 ± 39.416  ns/op
+TestStreams.testIndexedFor      avgt    9  588.763 ±  8.013  ns/op
+TestStreams.testIteratorFor     avgt    9  611.770 ±  4.781  ns/op
+TestStreams.testWhileArray      avgt    9  333.156 ±  7.444  ns/op
+
+JDK 1.8.0_51, Java HotSpot(TM) 64-Bit Server VM, 25.51-b03
+Benchmark                       Mode  Cnt    Score    Error  Units
+TestStreams.testExplicitStream  avgt    9  579.594 ± 10.708  ns/op
+TestStreams.testIndexedFor      avgt    9  564.180 ± 14.253  ns/op
+TestStreams.testIteratorFor     avgt    9  563.896 ± 13.134  ns/op
+TestStreams.testWhileArray      avgt    9  338.798 ±  4.955  ns/op

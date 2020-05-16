@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    id 'me.champeau.gradle.jmh' version '0.5.0'
+}
+
+group 'cpw.mods.perftests'
+version '0.1'
+
+repositories {
+    mavenCentral()
+}
+
+test {
+    useJUnitPlatform()
+    forkEvery 1
+}
+
+dependencies {
+    testImplementation('org.junit.jupiter:junit-jupiter-engine:5.6.+')
+}
+
+jmh {
+    jvmArgs = ['-Djmh.separateClasspathJAR=true']
+    include = [ 'cpw.mods.performancetests.TestStrings' ]
+    benchmarkMode = ['avgt' ]
+    profilers = [ 'stack' ]
+    timeOnIteration = '5s'
+    warmup = '5s'
+    warmupIterations = 3
+    iterations = 3
+    fork = 3
+    timeUnit = 'ns'
+}
+
+tasks['jmh'].dependsOn(clean)
