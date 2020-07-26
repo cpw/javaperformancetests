@@ -1,52 +1,88 @@
 package cpw.mods.performancetests;
 
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntIterator;
+import it.unimi.dsi.fastutil.ints.IntList;
 import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.infra.Blackhole;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class TestStreams {
-    public static List<Integer> testList = IntStream.range(1, 1000).boxed().collect(Collectors.toList());
-    public static Integer[] arrayList = testList.toArray(new Integer[0]);
-    public static Integer[] tst = IntStream.range(1, 1000).boxed().toArray(Integer[]::new);
+    public static final List<Integer> boxedIntList = IntStream.range(1, 1000).boxed().collect(Collectors.toList());
+    public static final Integer[] boxedIntArray = boxedIntList.toArray(new Integer[0]);
+    public static final IntList intList = new IntArrayList(boxedIntList);
+    public static final int[] intArray = intList.toIntArray();
+    public static final Integer[] tst = IntStream.range(1, 1000).boxed().toArray(Integer[]::new);
 
     @Benchmark
-    public int testExplicitStream(Blackhole bh) {
-        return testList.stream().mapToInt(Integer::intValue).sum();
+    public int testBoxedListStream(Blackhole bh) {
+        return boxedIntList.stream().mapToInt(Integer::intValue).sum();
     }
     @Benchmark
-    public int testArrayStream(Blackhole bh) {
-        return Arrays.stream(arrayList).mapToInt(Integer::intValue).sum();
+    public int testBoxedArrayStream(Blackhole bh) {
+        return Arrays.stream(boxedIntArray).mapToInt(Integer::intValue).sum();
     }
     @Benchmark
-    public int testIteratorFor(Blackhole bh) {
+    public int testBoxedListIteratorFor(Blackhole bh) {
         int sum = 0;
-        for (Integer i : testList) {
-            sum += i.intValue();
+        for (Integer i : boxedIntList) {
+            sum += i;
         }
         return sum;
     }
     @Benchmark
-    public int testIndexedFor(Blackhole bh) {
+    public int testBoxedListIndexedFor(Blackhole bh) {
         int sum = 0;
-        for (int i1 = 0, testListSize = testList.size(); i1 < testListSize; i1++) {
-            sum += testList.get(i1).intValue();
+        for (int i1 = 0, testListSize = boxedIntList.size(); i1 < testListSize; i1++) {
+            sum += boxedIntList.get(i1);
         }
         return sum;
     }
     @Benchmark
-    public int testWhileArray(Blackhole bh) {
+    public int testBoxedArrayWhile(Blackhole bh) {
         int sum = 0;
-        int i1 = 0, testListSize = arrayList.length;
+        int i1 = 0, testListSize = boxedIntArray.length;
         while (i1 < testListSize) {
-            sum += arrayList[i1].intValue();
+            sum += boxedIntArray[i1];
             i1++;
+        }
+        return sum;
+    }
+
+    @Benchmark
+    public int testPrimitiveListStream(Blackhole bh) {
+        return intList.stream().mapToInt(Integer::intValue).sum();
+    }
+    @Benchmark
+    public int testPrimitiveArrayStream(Blackhole bh) {
+        return Arrays.stream(intArray).sum();
+    }
+    @Benchmark
+    public int testPrimitiveListIteratorWhile(Blackhole bh) {
+        int sum = 0;
+        IntIterator it = intList.iterator();
+        while (it.hasNext()) {
+            sum += it.nextInt();
+        }
+        return sum;
+    }
+    @Benchmark
+    public int testPrimitiveListIndexedFor(Blackhole bh) {
+        int sum = 0;
+        for (int i1 = 0, testListSize = intList.size(); i1 < testListSize; i1++) {
+            sum += intList.getInt(i1);
+        }
+        return sum;
+    }
+    @Benchmark
+    public int testPrimitiveArrayIteratorFor(Blackhole bh) {
+        int sum = 0;
+        for (int i : intArray) {
+            sum += i;
         }
         return sum;
     }
