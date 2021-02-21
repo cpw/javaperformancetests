@@ -30,6 +30,10 @@ public class TestZipfsExists {
     public void benchmarkFileExists() {
         if (!Files.exists(fs.getPath("META-INF/mods.toml")))
             throw new RuntimeException("Expected mods.toml to be present!");
+    }
+
+    @Benchmark
+    public void benchmarkFileNotExists() {
         if (Files.exists(fs.getPath("META-INF/coremods.json")))
             throw new RuntimeException("Expected coremods.json to be missing!");
     }
