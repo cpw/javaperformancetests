@@ -22,7 +22,7 @@ dependencies {
 
 jmh {
     jvmArgs = ['-Djmh.separateClasspathJAR=true']
-    include = [ 'cpw.mods.performancetests.TestStrings' ]
+    include = [ 'cpw.mods.performancetests.TestZipfsExists' ]
     benchmarkMode = ['avgt' ]
     profilers = [ 'stack' ]
     timeOnIteration = '5s'
